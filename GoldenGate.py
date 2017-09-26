@@ -4,17 +4,27 @@ from opentrons import robot, containers, instruments
 
 #Create 6x12 p20 tip rack container
 containers.create(
-'6x12_tiprack',
+'6x12-tiprack',
 grid=(6,12),
 spacing=(9, 9),
 diameter=5,
 depth=60
 )
 
+#Create 3x6 2ml tube rack for DNA samples
+containers.create(
+'3x6-tube-rack-2ml',
+grid=(3,6),
+spacing=(19.5,19.5)
+diameter=,9.5
+depth=40
+)
+
 #Specify containers
 p20rack = containers.load('6x12_tiprack', 'B2', 'p20_rack')
 tube_rack = containers.load('tube-rack-2ml', 'D1', 'tube_rack')
 cool_rack = containers.load('tube-rack-2ml', 'E3', 'cool_rack')
+DNA_rack = containers.load('3x6-tube-rack-2ml', 'C3', 'DNA_rack')
 
 output = containers.load('96-PCR-flat', 'C1', 'output')
 trash = containers.load('trash-box', 'A3')
@@ -56,6 +66,15 @@ p20.transfer(
 	touch_tip=True,
 	new_tip='always'
 )
+
+p20.transfer(
+	DNA_volumes,
+	DNA_rack.wells('A1', length=num_assemblies),
+	mix_after = (3, 8)
+	blow_out=True,
+	new_tip='always'
+)
+
 
 p20.transfer(
 	2,
