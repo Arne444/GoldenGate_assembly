@@ -15,13 +15,13 @@ depth=60
 containers.create(
 '3x6-tube-rack-2ml',
 grid=(3,6),
-spacing=(19.5,19.5)
-diameter=,9.5
+spacing=(19.5,19.5),
+diameter=9.5,
 depth=40
 )
 
 #Specify containers
-p20rack = containers.load('6x12_tiprack', 'B2', 'p20_rack')
+p20rack = containers.load('6x12-tiprack', 'B2', 'p20_rack')
 tube_rack = containers.load('tube-rack-2ml', 'D1', 'tube_rack')
 cool_rack = containers.load('tube-rack-2ml', 'E3', 'cool_rack')
 DNA_rack = containers.load('3x6-tube-rack-2ml', 'C3', 'DNA_rack')
@@ -70,11 +70,12 @@ p20.transfer(
 p20.transfer(
 	DNA_volumes,
 	DNA_rack.wells('A1', length=num_assemblies),
-	mix_after = (3, 8)
+	output.wells('A1', length=num_assemblies),
+	mix_after = (3, 8),
 	blow_out=True,
+	touch_tip=True,
 	new_tip='always'
 )
-
 
 p20.transfer(
 	2,
